@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Atinuke</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
 * {
@@ -15,36 +15,51 @@
 }
 
 body {
-  height: 100vh;
-  background: linear-gradient(135deg, #000000, #0a1f44);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-family: 'Inter', sans-serif;
+  background: linear-gradient(180deg, #000000, #0a1f44);
   color: white;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
-.container {
+.section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  max-width: 600px;
-  padding: 30px;
-  animation: fadeIn 1.5s ease;
+  padding: 40px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 1s ease;
+}
+
+.section.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.content {
+  max-width: 700px;
 }
 
 h1 {
-  font-size: 40px;
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
   margin-bottom: 20px;
 }
 
 p {
-  font-size: 17px;
-  line-height: 1.6;
+  font-size: 18px;
+  line-height: 1.8;
   opacity: 0.9;
 }
 
+.highlight {
+  color: #4da6ff;
+}
+
 .button {
-  margin-top: 30px;
+  margin-top: 20px;
   padding: 12px 25px;
   border: 1px solid #4da6ff;
   border-radius: 30px;
@@ -60,21 +75,15 @@ p {
   color: black;
 }
 
-.hidden {
-  display: none;
-  margin-top: 30px;
-  animation: fadeIn 1s ease;
-}
-
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(20px);}
-  to {opacity: 1; transform: translateY(0);}
+.response {
+  margin-top: 25px;
+  font-size: 18px;
 }
 
 .glow {
-  position: absolute;
-  width: 350px;
-  height: 350px;
+  position: fixed;
+  width: 300px;
+  height: 300px;
   background: rgba(0, 102, 255, 0.25);
   filter: blur(120px);
   border-radius: 50%;
@@ -88,42 +97,98 @@ p {
 
 <div class="glow"></div>
 
-<div class="container">
-  <h1>Hey Mama</h1>
+<!-- Appreciation Flow -->
+<div class="section">
+  <div class="content">
+    <h1>For You</h1>
+    <p>I know I must have said this multiple times…</p>
+  </div>
+</div>
 
-  <p>
-    I thought of doing something special every time I ask you on a date 😂  
-    So here it is...
-  </p>
+<div class="section">
+  <div class="content">
+    <p>
+      Thank you for being who you are.  
+      You have an amazing personality, and I know you enjoy your time with me 🌚
+    </p>
+  </div>
+</div>
 
-  <div id="question" style="margin-top: 25px;">
-    <p style="font-size:18px; margin-bottom:15px;">
-      Will you go out on a date with me by 6 pm today?
+<div class="section">
+  <div class="content">
+    <p>Your pride sha 😭😂😂.... I'm just joking 😂</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="content">
+    <p>
+      Anyways… I was trying new things, and I thought this would be cute for you.
+    </p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="content">
+    <p>
+      Always know I look forward to spending time with you.
+    </p>
+  </div>
+</div>
+
+<!-- Transition -->
+<div class="section">
+  <div class="content">
+    <p>
+      So… I thought I’d actually do something about it.
+    </p>
+  </div>
+</div>
+
+<!-- Invite -->
+<div class="section">
+  <div class="content">
+    <p style="font-size:22px;">
+      Will you go out on a date with me by <span class="highlight">6pm today?</span>
     </p>
 
-    <button class="button" onclick="sayYes()">Yes</button>
-    <button class="button" onclick="sayNo()">No</button>
-  </div>
+    <div>
+      <button class="button" onclick="sayYes()">Yes</button>
+      <button class="button" onclick="sayNo()">No</button>
+    </div>
 
-  <div id="response" class="hidden"></div>
+    <div id="response" class="response"></div>
+  </div>
 </div>
 
 <script>
+const sections = document.querySelectorAll(".section");
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+    }
+  });
+}, { threshold: 0.3 });
+
+sections.forEach(section => {
+  observer.observe(section);
+});
+
 function sayYes() {
   document.getElementById("response").innerHTML =
-    "<p>Perfect. I’ll see you by 6 😊</p>";
-  document.getElementById("response").style.display = "block";
+    "Perfect. I’ll see you by 6 😊";
 }
 
 function sayNo() {
   document.getElementById("response").innerHTML =
-    "<p>Are you sure? 🤨</p><br><button class='button' onclick='forceYes()'>Yes</button>";
-  document.getElementById("response").style.display = "block";
+    "Are you sure? 🤨 <br><br><button class='button' onclick='forceYes()'>Yes</button>";
 }
 
 function forceYes() {
   document.getElementById("response").innerHTML =
-    "<p>I knew it 😌 See you by 6.</p>";
+    "I knew it 😌 See you by 6.";
 }
 </script>
 
